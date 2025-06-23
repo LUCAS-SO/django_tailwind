@@ -1,54 +1,62 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Inicio - Soluciones Digitales{% endblock %}
 
 {% block content %}
 
 <!-- Hero Principal -->
-<section class="text-center py-20 px-6 bg-gradient-to-br from-green-600 to-emerald-500 text-white rounded-xl shadow mb-16">
+<section class="text-center py-20 px-6 bg-[#FF9800] text-white rounded-xl shadow mb-16">
   <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Soluciones Digitales</h1>
   <p class="text-xl font-light max-w-2xl mx-auto mb-6">Impulsamos ideas con tecnología. Desarrollo web, análisis de datos, marketing digital y mucho más.</p>
-  <a href="#" class="inline-block bg-white text-green-700 font-semibold px-6 py-3 rounded-lg shadow hover:bg-gray-100 transition">
+  <a href="#" class="inline-block bg-white text-[#FF9800] font-semibold px-6 py-3 rounded-lg shadow hover:bg-[#FFF3E0] transition">
     Hablemos de tu proyecto
   </a>
 </section>
 
 <!-- Servicios -->
 <section class="mb-24 max-w-6xl mx-auto text-center px-4">
-  <h2 class="text-3xl font-bold mb-12 text-green-700">¿Qué ofrecemos?</h2>
+  <h2 class="text-3xl font-bold mb-12 text-[#37474F]">¿Qué ofrecemos?</h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
     
-    <div class="bg-white rounded-xl border border-gray-200 shadow-md p-6 hover:shadow-lg transition-all">
-      <h3 class="text-2xl font-semibold text-green-700 mb-3">💻 Desarrollo Web</h3>
-      <p class="text-gray-700">Creamos sitios rápidos, modernos y seguros con Django, Python, HTML y Tailwind.</p>
+    <div class="bg-white rounded-xl border border-[#607D8B] shadow-md p-6 hover:shadow-lg transition-all">
+      <img src="{% static 'img/dw.png' %}" alt="Desarrollo Web" class="mx-auto h-26 mb-4">
+      <h3 class="text-2xl font-semibold text-[#FF9800] mb-3">💻</h3>
+      <p class="text-[#37474F]">Creamos sitios rápidos, modernos y seguros con Django, Python, HTML y Tailwind.</p>
     </div>
     
-    <div class="bg-white rounded-xl border border-gray-200 shadow-md p-6 hover:shadow-lg transition-all">
-      <h3 class="text-2xl font-semibold text-green-700 mb-3">📊 Análisis de Datos</h3>
-      <p class="text-gray-700">Transformamos datos en decisiones con visualizaciones claras y reportes útiles.</p>
+    <div class="bg-white rounded-xl border border-[#607D8B] shadow-md p-6 hover:shadow-lg transition-all">
+      <img src="{% static 'img/ad.png' %}" alt="Análisis de Datos" class="mx-auto h-26 mb-4">
+      <h3 class="text-2xl font-semibold text-[#FF9800] mb-3">📊</h3>
+      <p class="text-[#37474F]">Transformamos datos en decisiones con visualizaciones claras y reportes útiles.</p>
     </div>
     
-    <div class="bg-white rounded-xl border border-gray-200 shadow-md p-6 hover:shadow-lg transition-all">
-      <h3 class="text-2xl font-semibold text-green-700 mb-3">📢 Marketing Digital</h3>
-      <p class="text-gray-700">Diseñamos estrategias de comunicación y posicionamiento para tu marca o proyecto.</p>
+    <div class="bg-white rounded-xl border border-[#607D8B] shadow-md p-6 hover:shadow-lg transition-all">
+      <img src="{% static 'img/cc.png' %}" alt="Consultoría Creativa" class="mx-auto h-26 mb-4">
+      <h3 class="text-2xl font-semibold text-[#FF9800] mb-3">📢</h3>
+      <p class="text-[#37474F]">Ayudamos a definir y potenciar ideas de negocio, branding, comunicación y presencia digital con una mirada integral y estratégica.</p>
     </div>
   </div>
 </section>
 
 <!-- Ideas / Filosofía -->
-<section class="bg-white py-20 px-6 text-center border-t border-b border-gray-200 mb-24">
-  <h2 class="text-3xl font-bold text-green-700 mb-6">Impulsamos ideas con propósito</h2>
-  <p class="max-w-3xl mx-auto text-lg text-gray-700">Somos una startup enfocada en ofrecer soluciones reales a personas reales. Creemos en el poder de las ideas, en el diseño centrado en las personas y en el valor de la tecnología aplicada con sentido.</p>
+<section class="bg-[#FFF3E0] py-20 px-6 text-center border-t border-b border-[#607D8B] mb-14">
+  <h2 class="text-3xl font-bold text-[#37474F] mb-6">Impulsamos ideas con propósito</h2>
+  <p class="max-w-3xl mx-auto text-lg text-[#37474F]">Somos una startup enfocada en ofrecer soluciones reales a personas reales. Creemos en el poder de las ideas, en el diseño centrado en las personas y en el valor de la tecnología aplicada con sentido.</p>
+</section>
+
+<!-- Imagen Creativa -->
+<section class="text-center py-12 px-4">
+  <img src="{% static 'img/equipo.png' %}" alt="Equipo" class="mx-auto w-40 md:w-64 lg:w-72 h-auto rounded-lg shadow-md border border-[#607D8B] bg-[#FFF3E0] p-2">
 </section>
 
 <!-- CTA / Contacto -->
-<section class="text-center py-16 px-4 bg-gray-100 rounded-xl shadow max-w-5xl mx-auto">
-  <h3 class="text-2xl font-bold text-green-800 mb-4">¿Querés trabajar con nosotros?</h3>
-  <p class="text-gray-700 mb-6 text-base md:text-lg">Ya sea que tengas una idea, un negocio o necesites una solución específica, estamos listos para ayudarte.</p>
-  <a href="#" class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-3 rounded-lg transition">
+<section class="text-center py-16 px-4 bg-[#FFF3E0] rounded-xl shadow max-w-5xl mx-auto">
+  <h3 class="text-2xl font-bold text-[#37474F] mb-4">¿Querés trabajar con nosotros?</h3>
+  <p class="text-[#37474F] mb-6 text-base md:text-lg">Ya sea que tengas una idea, un negocio o necesites una solución específica, estamos listos para ayudarte.</p>
+  <a href="#" class="inline-block bg-[#FF9800] hover:bg-[#FFC107] text-white font-medium px-6 py-3 rounded-lg transition">
     Contactanos
   </a>
 </section>
 
 {% endblock %}
-
