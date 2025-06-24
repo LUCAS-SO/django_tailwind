@@ -32,17 +32,17 @@
 
     <!-- Menú Desktop -->
     <nav class="hidden md:flex space-x-6">
-      <a href="#" class="text-[#FF9800] font-medium hover:text-[#FFC107] transition">Inicio</a>
+      <a href="{% url "inicio" %}" class="text-[#FF9800] font-medium hover:text-[#FFC107] transition">Inicio</a>
       <a href="#" class="text-[#FF9800] font-medium hover:text-[#FFC107] transition">Proyectos</a>
-      <a href="#" class="text-[#FF9800] font-medium hover:text-[#FFC107] transition">Contacto</a>
+      <a href="{% url "contacto" %}" class="text-[#FF9800] font-medium hover:text-[#FFC107] transition">Contacto</a>
     </nav>
   </div>
 
   <!-- Menú Mobile -->
-  <div id="mobile-menu" class="md:hidden mt-4 hidden flex flex-col space-y-2">
-    <a href="#" class="block text-[#FF9800] font-medium hover:text-[#FFC107] transition">Inicio</a>
+  <div id="mobile-menu" class="hidden md:hidden mt-4 flex-col space-y-2">
+    <a href="{% url "inicio" %}" class="block text-[#FF9800] font-medium hover:text-[#FFC107] transition">Inicio</a>
     <a href="#" class="block text-[#FF9800] font-medium hover:text-[#FFC107] transition">Proyectos</a>
-    <a href="#" class="block text-[#FF9800] font-medium hover:text-[#FFC107] transition">Contacto</a>
+    <a href="{% url "contacto" %}" class="block text-[#FF9800] font-medium hover:text-[#FFC107] transition">Contacto</a>
   </div>
 </header>
 
