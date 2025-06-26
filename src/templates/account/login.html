@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md border border-[#607D8B]/20">
+  <h2 class="text-2xl font-semibold text-center text-[#37474F] mb-6">Iniciar sesión</h2>
+
+  <form method="POST" action="{% url 'account_login' %}" class="space-y-4">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div>
+      {{ form.login.label_tag }}
+      {{ form.login }}
+      {% if form.login.errors %}
+        <p class="text-sm text-red-500">{{ form.login.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.password.label_tag }}
+      {{ form.password }}
+      {% if form.password.errors %}
+        <p class="text-sm text-red-500">{{ form.password.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+
+    <button type="submit" class="w-full bg-[#FF9800] hover:bg-[#FFC107] text-white py-2 px-4 rounded-lg font-medium transition">
+      Iniciar sesión
+    </button>
+  </form>
+
+  <p class="text-sm text-center text-[#607D8B] mt-6">
+    ¿No tenés cuenta?
+    <a href="{% url 'account_signup' %}" class="text-[#FF9800] hover:underline">Registrate acá</a>
+  </p>
+
+  <p class="text-sm text-center mt-2">
+    <a href="{% url 'account_reset_password' %}" class="text-[#607D8B] hover:underline">¿Olvidaste tu contraseña?</a>
+  </p>
+</div>
+{% endblock %}

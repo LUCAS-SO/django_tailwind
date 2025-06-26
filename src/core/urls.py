@@ -20,9 +20,11 @@ from web.views import inicio, contacto
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     
     path("", inicio, name="inicio"),
+    path('blog/', include('app_blog.urls')),
     path('contacto/', contacto, name='contacto'),
 ]

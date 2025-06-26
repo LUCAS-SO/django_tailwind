@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account %}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md border border-[#607D8B]/20">
+  <h2 class="text-2xl font-semibold text-center text-[#37474F] mb-6">Crear una cuenta</h2>
+
+  <form method="POST" action="{% url 'account_signup' %}" class="space-y-4">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div>
+      {{ form.email.label_tag }}
+      {{ form.email }}
+      {% if form.email.errors %}
+        <p class="text-sm text-red-500">{{ form.email.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.password1.label_tag }}
+      {{ form.password1 }}
+      {% if form.password1.errors %}
+        <p class="text-sm text-red-500">{{ form.password1.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.password2.label_tag }}
+      {{ form.password2 }}
+      {% if form.password2.errors %}
+        <p class="text-sm text-red-500">{{ form.password2.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+
+    <button type="submit" class="w-full bg-[#FF9800] hover:bg-[#FFC107] text-white py-2 px-4 rounded-lg font-medium transition">
+      Registrarse
+    </button>
+  </form>
+
+  <p class="text-sm text-center text-[#607D8B] mt-6">
+    ¿Ya tenés una cuenta?
+    <a href="{% url 'account_login' %}" class="text-[#FF9800] hover:underline">Iniciar sesión</a>
+  </p>
+</div>
+{% endblock %}

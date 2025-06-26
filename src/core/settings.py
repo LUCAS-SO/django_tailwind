@@ -37,12 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # django-allauth
+    'django.contrib.sites',        # Necesario
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',       # Para login social
 
+    # Tailwind CSS
     "tailwind",
     "theme",
     'django_browser_reload',
 
+    # Local apps
     "web",
+    "app_blog",
 
 ]
 
@@ -55,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -135,3 +146,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TAILWIND_APP_NAME = "theme"
 NPM_BIN_PATH = 'npm.cmd'
 INTERNAL_IPS = ["127.0.0.1"]
+
+# django-allauth settings
+# https://django-allauth.readthedocs.io/en/latest/installation/quickstart.html
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # 'mandatory' para verificar por correo
