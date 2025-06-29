@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from decouple import config # Para manejar variables de entorno
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',       # Para login social
+    # 'allauth.socialaccount.providers.google',  # Proveedor de Google
 
     # Tailwind CSS
     "tailwind",
@@ -156,9 +158,24 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+# Login and logout redirects
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'  # 'mandatory' para verificar por correo
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True       # Activación al hacer clic
+
+# Email settings for django-allauth
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"  # o "http" si estás en local
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Lucas] "
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
