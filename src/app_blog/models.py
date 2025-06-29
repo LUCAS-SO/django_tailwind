@@ -1,16 +1,45 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
-from django.contrib.auth import get_user_model
+from taggit.managers import TaggableManager
+
 
 User = get_user_model()
+
+
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    class Meta:
+        verbose_name = "Categoría"
+        verbose_name_plural = "Categorías"
+        ordering = ['nombre']
+
+    def __str__(self):
+        return self.nombre
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nombre)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('app_blog:categoria_posts', kwargs={'slug': self.slug})
+
 
 class Post(models.Model):
     titulo = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    autor = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='posts')
     imagen = models.ImageField(upload_to='posts/', blank=True, null=True)
     contenido = models.TextField()
     publicado = models.BooleanField(default=False)
+    categoria = models.ForeignKey(
+    Categoria, on_delete=models.SET_NULL, null=True, blank=True, related_name='posts')
+    tags = TaggableManager(blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ categoria.nombre }}{% endblock %}
+
+{% block content %}
+<h2 class="text-3xl font-bold text-[#37474F] mb-8">Categoría: {{ categoria.nombre }}</h2>
+
+{% include "app_blog/post_cards.html" with posts=posts %}
+{% endblock %}

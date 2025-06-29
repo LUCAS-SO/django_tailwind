@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ post.titulo }}{% endblock %}
-
 {% block content %}
 <article class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-md border border-[#607D8B]/20">
   {% if post.imagen %}
-    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="w-full h-64 object-cover rounded-xl mb-6">
+  <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="w-full h-64 object-cover rounded-xl mb-6" />
   {% endif %}
 
   <h1 class="text-3xl font-bold text-[#FF9800] mb-2">{{ post.titulo }}</h1>
@@ -15,9 +14,24 @@
   <div class="prose max-w-none text-[#37474F]">
     {{ post.contenido|linebreaks }}
   </div>
+
+  {% if post.tags.all %}
+  <div class="mt-4">
+    <h3 class="text-[#607D8B] text-sm font-semibold mb-2">Tags:</h3>
+    <div class="flex flex-wrap gap-1">
+      {% for tag in post.tags.all %}
+      <a href="{% url 'app_blog:post_por_tag' tag.name|slugify %}" class="bg-[#FF9800]/10 text-[#FF9800] px-3 py-1 rounded-full text-xs font-medium hover:bg-[#FF9800]/20">
+        #{{ tag.name }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </article>
 
 <div class="max-w-3xl mx-auto mt-6">
-  <a href="{% url 'app_blog:post_lista' %}" class="text-[#FF9800] hover:underline">&larr; Volver al blog</a>
+  <a href="{% url 'app_blog:post_lista' %}" class="text-[#FF9800] hover:underline">
+    &larr; Volver al blog
+  </a>
 </div>
 {% endblock %}

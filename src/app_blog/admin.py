@@ -1,13 +1,20 @@
 from django.contrib import admin
-from .models import Post
+from .models import Categoria, Post
 
 # Register your models here.
 
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('nombre',)
+    prepopulated_fields = {'slug': ('nombre',)}
+    search_fields = ('nombre',)
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'autor', 'publicado', 'fecha_creacion')
-    list_filter = ('publicado', 'fecha_creacion', 'autor')
-    search_fields = ('titulo', 'contenido')
+    list_display = ('titulo', 'autor', 'fecha_creacion')
     prepopulated_fields = {'slug': ('titulo',)}
-    date_hierarchy = 'fecha_creacion'
-    ordering = ('-fecha_creacion',)
+    search_fields = ('titulo', 'contenido')
+    list_filter = ('fecha_creacion', 'autor', 'categoria')
+    autocomplete_fields = ['autor']
+    fields = ('titulo', 'slug', 'autor', 'contenido', 'categoria', 'tags', 'publicado')

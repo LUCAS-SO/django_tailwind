@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',       # Para login social
     # 'allauth.socialaccount.providers.google',  # Proveedor de Google
 
+    # Third-party apps
+    'taggit',
+
     # Tailwind CSS
     "tailwind",
     "theme",
@@ -83,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app_blog.context_processors.categorias_context',
             ],
         },
     },
