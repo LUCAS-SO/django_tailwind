@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from decouple import config # Para manejar variables de entorno
 from pathlib import Path
 
@@ -179,3 +180,8 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"  # o "http" si estás en local
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Lucas] "
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+
+# Media files settings
+# https://docs.djangoproject.com/en/5.2/topics/files/
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

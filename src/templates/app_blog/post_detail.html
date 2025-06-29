@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ post.titulo }}{% endblock %}
+
+{% block content %}
+<article class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-md border border-[#607D8B]/20">
+  {% if post.imagen %}
+    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="w-full h-64 object-cover rounded-xl mb-6">
+  {% endif %}
+
+  <h1 class="text-3xl font-bold text-[#FF9800] mb-2">{{ post.titulo }}</h1>
+  <p class="text-sm text-[#607D8B] mb-6">
+    Publicado por <strong>{{ post.autor }}</strong> el {{ post.fecha_creacion|date:"d/m/Y" }}
+  </p>
+
+  <div class="prose max-w-none text-[#37474F]">
+    {{ post.contenido|linebreaks }}
+  </div>
+</article>
+
+<div class="max-w-3xl mx-auto mt-6">
+  <a href="{% url 'app_blog:post_lista' %}" class="text-[#FF9800] hover:underline">&larr; Volver al blog</a>
+</div>
+{% endblock %}
