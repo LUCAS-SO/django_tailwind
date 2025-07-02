@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils import timezone
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
 
@@ -65,3 +66,21 @@ class Post(models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('app_blog:post_detalle', kwargs={'slug': self.slug})
+    
+
+
+class Comentario(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comentarios')
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField()
+    contenido = models.TextField()
+    fecha_creacion = models.DateTimeField(default=timezone.now)
+    aprobado = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-fecha_creacion']
+        verbose_name = 'Comentario'
+        verbose_name_plural = 'Comentarios'
+
+    def __str__(self):
+        return f'Comentario de {self.nombre} en {self.post}'

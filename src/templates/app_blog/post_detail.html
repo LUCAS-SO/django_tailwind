@@ -1,34 +1,93 @@
 {% extends "base.html" %}
 {% block title %}{{ post.titulo }}{% endblock %}
+
 {% block content %}
 <article class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-md border border-[#607D8B]/20">
+
+  <!-- Imagen del post -->
   {% if post.imagen %}
-  <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="w-full h-64 object-cover rounded-xl mb-6" />
+    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}"
+         class="w-full h-64 object-cover rounded-xl mb-6" />
   {% endif %}
 
+  <!-- Título y autor -->
   <h1 class="text-3xl font-bold text-[#FF9800] mb-2">{{ post.titulo }}</h1>
   <p class="text-sm text-[#607D8B] mb-6">
     Publicado por <strong>{{ post.autor }}</strong> el {{ post.fecha_creacion|date:"d/m/Y" }}
   </p>
 
+  <!-- Contenido -->
   <div class="prose max-w-none text-[#37474F]">
     {{ post.contenido|linebreaks }}
   </div>
 
+  <!-- Tags -->
   {% if post.tags.all %}
-  <div class="mt-4">
-    <h3 class="text-[#607D8B] text-sm font-semibold mb-2">Tags:</h3>
-    <div class="flex flex-wrap gap-1">
-      {% for tag in post.tags.all %}
-      <a href="{% url 'app_blog:post_por_tag' tag.name|slugify %}" class="bg-[#FF9800]/10 text-[#FF9800] px-3 py-1 rounded-full text-xs font-medium hover:bg-[#FF9800]/20">
-        #{{ tag.name }}
-      </a>
-      {% endfor %}
+    <div class="mt-6">
+      <h3 class="text-[#607D8B] text-sm font-semibold mb-2">Tags:</h3>
+      <div class="flex flex-wrap gap-2">
+        {% for tag in post.tags.all %}
+          <a href="{% url 'app_blog:post_por_tag' tag.name|slugify %}"
+             class="bg-[#FF9800]/10 text-[#FF9800] px-3 py-1 rounded-full text-xs font-medium hover:bg-[#FF9800]/20">
+            #{{ tag.name }}
+          </a>
+        {% endfor %}
+      </div>
     </div>
-  </div>
   {% endif %}
+
+  <!-- Comentarios -->
+  <section class="mt-10">
+    <h2 class="text-xl font-semibold text-[#37474F] mb-4">Comentarios</h2>
+
+    {% for comentario in comentarios %}
+      <div class="mb-4 border border-[#607D8B]/20 rounded-xl p-4 bg-white">
+        <p class="text-sm text-[#607D8B] font-medium">{{ comentario.nombre }} dijo:</p>
+        <p class="text-[#37474F] mt-1">{{ comentario.contenido|linebreaks }}</p>
+        <p class="text-xs text-[#607D8B] mt-2">
+          {{ comentario.fecha_creacion|date:"d/m/Y H:i" }}
+        </p>
+      </div>
+    {% empty %}
+      <p class="text-[#607D8B]">No hay comentarios aún. ¡Sé el primero!</p>
+    {% endfor %}
+  </section>
+
+  <!-- Formulario de comentario -->
+  <section class="mt-8">
+    <h3 class="text-lg font-semibold text-[#37474F] mb-4">Dejá un comentario</h3>
+
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        {{ form.nombre.label_tag }}<br>
+        {{ form.nombre }}
+        {{ form.nombre.errors }}
+      </div>
+
+      <div>
+        {{ form.email.label_tag }}<br>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+
+      <div>
+        {{ form.contenido.label_tag }}<br>
+        {{ form.contenido }}
+        {{ form.contenido.errors }}
+      </div>
+
+      <button type="submit"
+              class="bg-[#FF9800] text-white px-4 py-2 rounded hover:bg-[#FB8C00] transition">
+        Enviar comentario
+      </button>
+    </form>
+  </section>
 </article>
 
+<!-- Volver -->
 <div class="max-w-3xl mx-auto mt-6">
   <a href="{% url 'app_blog:post_lista' %}" class="text-[#FF9800] hover:underline">
     &larr; Volver al blog

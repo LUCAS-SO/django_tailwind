@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormMixin
 from django.utils.text import slugify
 from taggit.models import Tag
-from .models import Categoria , Post
+from .forms import ComentarioForm
+from .models import Categoria, Post, Comentario
 
-# Create your views here.
 
 
 class CategoriaPostListView(ListView):
@@ -51,10 +52,30 @@ class PostListView(ListView):
         return Post.objects.filter(publicado=True)
     
 
-class PostDetailView(DetailView):
+class PostDetalleView(FormMixin, DetailView):
     model = Post
     template_name = 'app_blog/post_detail.html'
     context_object_name = 'post'
+    form_class = ComentarioForm
+
+    def get_success_url(self):
+        return self.request.path
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comentarios'] = self.object.comentarios.filter(aprobado=True)
+        context['form'] = self.get_form()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.post = self.object
+            comentario.save()
+            return self.form_valid(form)
+        return self.form_invalid(form)
 
 
 class PostsPorTagView(ListView):
